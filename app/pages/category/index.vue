@@ -25,7 +25,7 @@
 <script setup>
   import { ref } from 'vue'
 
-  const search = ref('')
+  const search = ref('');
   const { data: category} = await useFetch('http://localhost:1337/api/categories');
   const headers = [
     { key: 'category_name', title: 'Category' },
