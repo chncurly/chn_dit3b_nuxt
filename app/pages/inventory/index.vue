@@ -1,6 +1,6 @@
 <template>
   <v-card
-    title="Category"
+    title="Inventory"
     flat
   >
     <template v-slot:text>
@@ -13,6 +13,15 @@
         single-line
       ></v-text-field>
     </template>
+    
+    <v-select
+    clearable
+      label="Select Category"
+      :items="category.data"
+      item-title="category_name"
+      item-value="id"
+      variant="outlined"
+    ></v-select>
 
     <v-data-table
       :headers="headers"
@@ -24,8 +33,11 @@
 
 <script setup>
   import { ref } from 'vue'
-  const search = ref('');
-  const { data: inventory } = await useFetch('http://localhost:1337/api/inventories');
+
+  const search = ref('')
+  const { data: inventory } = await useFetch('http://localhost:1337/api/inventories?populate=category');
+
+  const { data: category } = await useFetch('http://localhost:1337/api/categories');
   const headers = [
     { key: 'product_name', title: 'Product Name' },
     { key: 'product_description', title: 'Product Description' },
